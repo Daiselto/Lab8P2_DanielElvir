@@ -14,7 +14,7 @@ public class Nadador implements Serializable{
     private String Nombre;
     private Pais Nacionalidad;
     private int Edad;
-    private int Estatura;
+    private double Estatura;
     private String estiloNatacion;
     private int DistanciaCompetirá;
     private int tiempoMásRapido;
@@ -23,7 +23,7 @@ public class Nadador implements Serializable{
     public Nadador() {
     }
 
-    public Nadador(String Nombre, Pais Nacionalidad, int Edad, int Estatura, String estiloNatacion, int DistanciaCompetirá, int tiempoMásRapido, int numMedallas) {
+    public Nadador(String Nombre, Pais Nacionalidad, int Edad, double Estatura, String estiloNatacion, int DistanciaCompetirá, int tiempoMásRapido, int numMedallas) {
         this.Nombre = Nombre;
         this.Nacionalidad = Nacionalidad;
         this.Edad = Edad;
@@ -58,11 +58,11 @@ public class Nadador implements Serializable{
         this.Edad = Edad;
     }
 
-    public int getEstatura() {
+    public double getEstatura() {
         return Estatura;
     }
 
-    public void setEstatura(int Estatura) {
+    public void setEstatura(double Estatura) {
         this.Estatura = Estatura;
     }
 

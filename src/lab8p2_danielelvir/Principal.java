@@ -27,7 +27,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();        
-
+        //llenarPaises();
     }
 
     /**
@@ -39,7 +39,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         CrearPais = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,6 +79,12 @@ public class Principal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabsStateChanged(evt);
+            }
+        });
 
         CrearPais.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -143,7 +149,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(169, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Crear Paises", CrearPais);
+        tabs.addTab("Crear Paises", CrearPais);
 
         CrearNadador.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -285,7 +291,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(37, 37, 37))
         );
 
-        jTabbedPane1.addTab("Crear Nadadores", CrearNadador);
+        tabs.addTab("Crear Nadadores", CrearNadador);
 
         CrearEvento.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -359,19 +365,19 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(136, 136, 136))
         );
 
-        jTabbedPane1.addTab("Crear Evento", CrearEvento);
+        tabs.addTab("Crear Evento", CrearEvento);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabs)
         );
 
         pack();
@@ -381,24 +387,20 @@ public class Principal extends javax.swing.JFrame {
         try {
             String NomPais = tf_NomPais.getText();
             int NumMedallas = (int) sp_NumMedallas.getValue();
-            FileOutputStream fw = null;
-            ObjectOutputStream bw = null;
+            
             Pais p = new Pais(NomPais, NumMedallas);            
-
-                ap = new adminPais("./Pais.psps");
+                
                 ap.cargarArchivo();
                 ap.setPais(p);
                 ap.escribirArchivo();
                 JOptionPane.showMessageDialog(this,
                         "Pais guardado exitosamente");            
-
-            try {
-                bw.close();
-                fw.close();
-            } catch (IOException ex) {
-            }
+                
+                tf_NomPais.setText("");
+                sp_NumMedallas.setValue(0);
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error y no se guardó nada");
+            e.printStackTrace();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -406,15 +408,48 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             String NomNadador = tf_NomNadador.getText();
-
+            Pais p = (Pais) cb_PaisNadador.getSelectedItem();
+            
+            int edad = (int) sp_Edad.getValue();
+            double estatura = Double.parseDouble(tf_Estatura.getText());
+            String estilo = (String) cb_EstilosNatacion.getSelectedItem();
+            String distanciaStr = (String) cb_Distancia.getSelectedItem();
+            int distancia = Integer.parseInt(distanciaStr);
+            int TiempoMasRapido = (int) sp_TiempoMásRapido.getValue();
+            int NumMedallas = (int) sp_NumMedallasNad.getValue();
+            
+            Nadador n = new Nadador(NomNadador, p, edad, estatura, estilo, distancia, TiempoMasRapido, NumMedallas);
+            p.getNadadores().add(n);
+            an.cargarArchivo();
+            an.setNadador(n);
+            an.escribirArchivo();
+            JOptionPane.showMessageDialog(this,
+                        "Nadador guardado exitosamente"); 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void llenarPaises(){
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+        if (tabs.getSelectedIndex()==1) {
+            ap = new adminPais("./Pais.psps");
+            ap.cargarArchivo();
+            DefaultComboBoxModel modelo
+                    = new DefaultComboBoxModel(
+                            ap.getPais().toArray());
+            cb_PaisNadador.setModel(modelo);
+        }
+    }//GEN-LAST:event_tabsStateChanged
+
+    /*public void llenarPaises(){
         ap.cargarArchivo();
-        
-    }
+        paises = ap.getPais();
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_PaisNadador.getModel();
+        for (Pais paise : paises) {
+            modelo.addElement(paise);
+        }
+        cb_PaisNadador.setModel(modelo);
+    }*/
     /**
      * @param args the command line arguments
      */
@@ -480,16 +515,17 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JSpinner sp_Edad;
     private javax.swing.JSpinner sp_NumMedallas;
     private javax.swing.JSpinner sp_NumMedallasNad;
     private javax.swing.JSpinner sp_TiempoMásRapido;
+    private javax.swing.JTabbedPane tabs;
     private javax.swing.JTextField tf_Estatura;
     private javax.swing.JTextField tf_NomNadador;
     private javax.swing.JTextField tf_NomPais;
     // End of variables declaration//GEN-END:variables
-     adminPais ap;
+     adminPais ap = new adminPais("./Pais.psps");
+     adminNadador an = new adminNadador("./Nadador.psps");
      ArrayList<Pais> paises = new ArrayList();
 }
