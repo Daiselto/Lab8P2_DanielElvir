@@ -4,11 +4,13 @@
  */
 package lab8p2_danielelvir;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HP
  */
-public class Evento {
+public class Evento implements Serializable {
     private String estiloNatacion;
     private int Distancia;
     private int recordActual;

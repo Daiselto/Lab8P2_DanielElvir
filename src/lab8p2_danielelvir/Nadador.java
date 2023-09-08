@@ -4,11 +4,13 @@
  */
 package lab8p2_danielelvir;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HP
  */
-class Nadador {
+public class Nadador implements Serializable{
     private String Nombre;
     private Pais Nacionalidad;
     private int Edad;
