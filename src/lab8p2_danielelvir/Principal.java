@@ -15,6 +15,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,7 +28,15 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        //llenarPaises();
+        ae.cargarArchivo();
+        eventos = ae.getPais();
+
+        DefaultTableModel modelo = (DefaultTableModel) tb_Eventos.getModel();
+
+        for (Evento evento : eventos) {
+            Object[] rows = {evento.getEstiloNatacion(), evento.getDistancia(), evento.getRecordActual()};
+            modelo.addRow(rows);
+        }
     }
 
     /**
@@ -75,6 +84,8 @@ public class Principal extends javax.swing.JFrame {
         cb_DistanciaEvento = new javax.swing.JComboBox<>();
         sp_Record = new javax.swing.JSpinner();
         jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_Eventos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         cb_segunPais = new javax.swing.JComboBox<>();
@@ -306,52 +317,69 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        tb_Eventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tb_Eventos);
+
         javax.swing.GroupLayout CrearEventoLayout = new javax.swing.GroupLayout(CrearEvento);
         CrearEvento.setLayout(CrearEventoLayout);
         CrearEventoLayout.setHorizontalGroup(
             CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CrearEventoLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel16))
-                .addGap(18, 18, 18)
-                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cb_EstiloEvento, 0, 271, Short.MAX_VALUE)
-                        .addComponent(cb_DistanciaEvento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(sp_Record, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearEventoLayout.createSequentialGroup()
-                .addContainerGap(580, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(496, 496, 496))
+            .addGroup(CrearEventoLayout.createSequentialGroup()
                 .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearEventoLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(496, 496, 496))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearEventoLayout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(433, 433, 433))))
+                    .addGroup(CrearEventoLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cb_EstiloEvento, 0, 271, Short.MAX_VALUE)
+                                .addComponent(cb_DistanciaEvento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(sp_Record, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(CrearEventoLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(126, 126, 126)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         CrearEventoLayout.setVerticalGroup(
             CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CrearEventoLayout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addGap(47, 47, 47)
-                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(cb_EstiloEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(cb_DistanciaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(sp_Record, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175))
+                .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CrearEventoLayout.createSequentialGroup()
+                        .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(cb_EstiloEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(cb_DistanciaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
+                        .addGroup(CrearEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(sp_Record, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125))
+                    .addGroup(CrearEventoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(103, Short.MAX_VALUE))))
         );
 
         tabs.addTab("Crear Evento", CrearEvento);
@@ -473,6 +501,17 @@ public class Principal extends javax.swing.JFrame {
                             ap.getPais().toArray());
             cb_PaisNadador.setModel(modelo);
         }
+
+        if (tabs.getSelectedIndex() == 3) {
+            ap = new adminPais("./Pais.psps");
+            ap.cargarArchivo();
+            DefaultComboBoxModel modelo
+                    = new DefaultComboBoxModel(
+                            ap.getPais().toArray());
+            cb_segunPais.setModel(modelo);
+        }
+
+        
     }//GEN-LAST:event_tabsStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -488,6 +527,17 @@ public class Principal extends javax.swing.JFrame {
             ae.escribirArchivo();
             JOptionPane.showMessageDialog(this,
                     "Evento guardado exitosamente");
+            ae.cargarArchivo();
+            eventos = ae.getPais();
+
+            DefaultTableModel modelo = (DefaultTableModel) tb_Eventos.getModel();
+            while (modelo.getRowCount()>0) {
+                modelo.removeRow(0);                
+            }
+            for (Evento evento : eventos) {
+                Object[] rows = {evento.getEstiloNatacion(), evento.getDistancia(), evento.getRecordActual()};
+                modelo.addRow(rows);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -569,12 +619,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner sp_Edad;
     private javax.swing.JSpinner sp_NumMedallas;
     private javax.swing.JSpinner sp_NumMedallasNad;
     private javax.swing.JSpinner sp_Record;
     private javax.swing.JSpinner sp_TiempoMásRapido;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTable tb_Eventos;
     private javax.swing.JTable tb_Nadadores;
     private javax.swing.JTextField tf_Estatura;
     private javax.swing.JTextField tf_NomNadador;
@@ -583,5 +635,5 @@ public class Principal extends javax.swing.JFrame {
     adminPais ap = new adminPais("./Pais.psps");
     adminNadador an = new adminNadador("./Nadador.psps");
     adminEvento ae = new adminEvento("./Evento.psps");
-    ArrayList<Pais> paises = new ArrayList();
+    ArrayList<Evento> eventos = new ArrayList();
 }
